@@ -3,13 +3,17 @@
 
 #include <QWidget>
 
+#include "ball.h"
+
 class Actor : public QWidget
 {
     Q_OBJECT
 public:
     explicit Actor(QWidget *parent = nullptr);
 
-signals:
+    void move(float x);
+
+    void fire(float angle, const QVector<Ball*>& balls);
 };
 
 #endif // ACTOR_H
