@@ -9,7 +9,9 @@ class Ball : public QWidget
 public:
     explicit Ball(QWidget *parent = nullptr);
 
-signals:
+    void setVelocity(const QVector2D& v);
+
+    bool doesHitted(QWidget* widget);
 };
 
 #endif // BALL_H
