@@ -7,7 +7,7 @@ class GameScene : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameScene(QWidget *parent = nullptr);
+    explicit GameScene(int brickCount, int brickRowCount, QWidget *parent = nullptr);
 
 signals:
 };
