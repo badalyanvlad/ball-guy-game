@@ -21,3 +21,6 @@ HEADERS += \
     brick.h \
     bricks_manager.h \
     game_scene.h
+
+RESOURCES += \
+    resources.qrc

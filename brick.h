@@ -13,6 +13,7 @@ signals:
 
 private:
     int health;
+
 };
 
 #endif // BRICK_H

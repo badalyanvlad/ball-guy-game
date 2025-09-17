@@ -5,15 +5,19 @@
 
 #include "ball.h"
 
-class Actor : public QWidget
-{
+class Actor : public QLabel{
+
     Q_OBJECT
+
 public:
+    double pointX;
+    double pointY;
+
     explicit Actor(QWidget *parent = nullptr);
+    void setPoint(double x);
+    void move(double x);
 
-    void move(float x);
-
-    void fire(float angle, const QVector<Ball*>& balls);
+    //void fire(float angle, const QVector<Ball*>& balls);
 };
 
 #endif // ACTOR_H
