@@ -3,17 +3,19 @@
 
 #include <QWidget>
 #include <QLabel>
+
 class Ball : public QLabel
 {
     Q_OBJECT
 public:
     explicit Ball(QWidget *parent = nullptr);
 
-    void setVelocity(const int vel);
-    int getVelocity();
-    bool doesHitted(QWidget* widget);
+    void setVelocity(double, double);
+    void setVector(double, double);
+    bool getVelocity();
     double pointX;
     double pointY;
+    double dx, dy;
 private:
     int velocity;
 

@@ -15,7 +15,7 @@
 #include "actor.h"
 #include "ball.h"
 //#include "bonus_brick.h"
-//#include "brick.h"
+#include "brick.h"
 
 
 class GameScene : public QWidget
@@ -29,34 +29,36 @@ class GameScene : public QWidget
     };
 public:
     explicit GameScene(/*int brickCount, int brickRowCount,*/ QWidget *parent = nullptr);
-
+    void addNewLineBrickes();
     void startGame();
     void fireAnim();
-    void fire(double dx1, double dy1);
-    /**
-     * shows balls fire direction
-     */
+    void fire();
     void mousePressEvent(QMouseEvent *event)override;
     void mouseMoveEvent(QMouseEvent *event)override;
     void mouseReleaseEvent(QMouseEvent* event)override;
     void mouseupdate(double mousePosX, double mousePosY);
     void timerStop();
-
+public slots:
+    void removeBrick(Brick* brick);
 signals:
     void readyToFire(double,double);
+private:
+    void brickCreating();
 private:
     State s;
     QTimer* timer;
     QVector<Ball*> balls;    //QVector<BonusBrick*> bonusBricks;
-    QList<QWidget*> bricks;
+    QVector<Brick*> bricks;
     QList<QLabel*> ballsForAim;
     Actor* actor;
-    Ball* ball;
-    int currentBallIndex = 0;
-    // double ballX;
-    // double ballY;
+    int lowestBrick;
+    bool actorpos;
+    int currentBallIndex;
+    int count;
+    int k1;
     double dx;
     double dy;
+
 };
 
 #endif // GAME_SCENE_H
