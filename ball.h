@@ -10,12 +10,15 @@ class Ball : public QLabel
 public:
     explicit Ball(QWidget *parent = nullptr);
 
-    void setVelocity(double, double);
-    bool getVelocity();
+    void setVelocity(int);
+    int getVelocity();
+    void setVector(QVector2D);
+    QVector2D getVector();
 
-    double dx, dy;
+
 private:
     QVector2D vector;
+    int velocity;
 
 
 };

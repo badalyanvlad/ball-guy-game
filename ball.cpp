@@ -1,7 +1,7 @@
 #include "ball.h"
 
 Ball::Ball(QWidget *parent)
-    : QLabel{parent}, dx(0), dy(0)
+    : QLabel{parent},vector(0,0),velocity(0)
 {
     this->setStyleSheet(
         "background-color: red;"
@@ -12,11 +12,16 @@ Ball::Ball(QWidget *parent)
     this->setGeometry(200,570,12,12);
 
 }
-void Ball::setVelocity(double dx1, double dy1){
-    dx = dx1 * 5;
-    dy = dy1 * 5;
+void Ball::setVector(QVector2D vector){
+    this->vector = vector;
 }
-bool Ball::getVelocity(){
-    return dx && dy;
+QVector2D Ball::getVector(){
+    return vector;
+}
+void Ball::setVelocity(int vel){
+    velocity = vel;
+}
+int Ball::getVelocity(){
+    return velocity;
 }
 
