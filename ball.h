@@ -11,13 +11,12 @@ public:
     explicit Ball(QWidget *parent = nullptr);
 
     void setVelocity(double, double);
-    void setVector(double, double);
     bool getVelocity();
-    double pointX;
-    double pointY;
+
     double dx, dy;
 private:
-    int velocity;
+    QVector2D vector;
+
 
 };
 
