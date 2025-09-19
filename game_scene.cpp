@@ -1,5 +1,6 @@
 #include "game_scene.h"
-
+#include <QPalette>
+#include <QSoundEffect>
 GameScene::GameScene(QWidget *parent)
     : QWidget{parent},s(State::Wait),actorpos(false),currentBallIndex(0),count(0)
 {
@@ -32,6 +33,7 @@ GameScene::GameScene(QWidget *parent)
     });
 
 }
+
 void GameScene::fireAnim(){
     count++;
     if(currentBallIndex < balls.size() && count  == 5){
@@ -39,79 +41,177 @@ void GameScene::fireAnim(){
         currentBallIndex++;
     }
 
-
     if(count > 5 ){
         count = 0;
     }
 
-        for(Ball* ball1: balls){
+    for(Ball* ball1: balls){
 
-            if(ball1->dx == 0 && ball1->dy == 0){
-                continue;
-            }
-            double nextX = ball1->pointX + ball1->dx;
-            double nextY = ball1->pointY + ball1->dy;
-
-            QRect ballRect(nextX, nextY, ball1->width(), ball1->height());
-
-            bool collided = false;
-
-            for (int i = 0; i < bricks.size(); ++i) {
-                Brick* w = bricks.at(i);
-                QRect blockRect = w->geometry();
-
-                if (ballRect.intersects(blockRect)) {
-                    bricks[i]->changeHealth();
-
-                    if ((ballRect.bottom() <= blockRect.top() + ball1->height() && dy > 0)
-                    || (ballRect.top() >= blockRect.bottom() - ball1->height() && dy < 0)){
-                        ball1->dy *= -1;
-                    } else {
-                        ball1->dx *= -1;
-                    }
-                    collided = true;
-                    break;
-                }
-            }
-
-            if (!collided) {
-                ball1->pointX = nextX;
-                ball1->pointY = nextY;
-            } else {
-                ball1->pointX += ball1->dx;
-                ball1->pointY += ball1->dy;
-            }
-
-            if (ball1->pointX <= 0 || ball1->pointX >= (double)this->size().width() - (double)ball1->size().width()) ball1->dx *= -1;
-            if (ball1->pointY <= 0) ball1->dy *= -1;
-            if (ball1->pointY >= (double)this->size().height() ){
-                qDebug() << ball1->pointY;
-                if(!actorpos){
-                    std::clamp(ball1->pointX,0.0,570.0);
-                    actor->move(ball1->pointX - 12);
-                    actor->setPoint(ball1->pointX);
-                    actorpos = true;
-                }
-                k1++;
-                actor->setBallCount(k1);
-                ball1->move(actor->pointX, actor->pointY);
-                ball1->pointX = actor->pointX;
-                ball1->pointY = actor->pointY;
-                ball1->setVelocity(0, 0);
-            }
-
-            if(k1 == balls.size()){
-
-                timerStop();
-                return;
-            }
-
-            ball1->move(ball1->pointX, ball1->pointY);
+        if(ball1->dx == 0 && ball1->dy == 0){
+            continue;
         }
 
+        double nextX = ball1->pointX + ball1->dx;
+        double nextY = ball1->pointY + ball1->dy;
+
+        QRect ballRect(nextX, nextY, ball1->width(), ball1->height());
+
+        bool collided = false;
+
+        for (int i = 0; i < bricks.size(); ++i) {
+            Brick* w = bricks.at(i);
+            QRect blockRect = w->geometry();
+
+            if (ballRect.intersects(blockRect)) {
+                bricks[i]->changeHealth();
+
+                double overlapLeft   = ballRect.right()  - blockRect.left();
+                double overlapRight  = blockRect.right() - ballRect.left();
+                double overlapTop    = ballRect.bottom() - blockRect.top();
+                double overlapBottom = blockRect.bottom() - ballRect.top();
+
+                double minOverlapX = std::min(overlapLeft, overlapRight);
+                double minOverlapY = std::min(overlapTop, overlapBottom);
+
+                if (minOverlapX < minOverlapY) {
+                    ball1->dx *= -1;
+                    if (overlapLeft < overlapRight)
+                        nextX = blockRect.left() - ball1->width();
+                    else
+                        nextX = blockRect.right();
+                } else {
+                    ball1->dy *= -1;
+                    if (overlapTop < overlapBottom)
+                        nextY = blockRect.top() - ball1->height();
+                    else
+                        nextY = blockRect.bottom();
+                }
 
 
+                collided = true;
+                break;
+            }
+        }
+
+        if (!collided) {
+            ball1->pointX = nextX;
+            ball1->pointY = nextY;
+        } else {
+            ball1->pointX = nextX;
+            ball1->pointY = nextY;
+        }
+
+        if (ball1->pointX <= 0 || ball1->pointX >= (double)this->size().width() - (double)ball1->size().width())
+            ball1->dx *= -1;
+        if (ball1->pointY <= 0)
+            ball1->dy *= -1;
+        if (ball1->pointY >= (double)this->size().height() ){
+            qDebug() << ball1->pointY;
+            if(!actorpos){
+                std::clamp(ball1->pointX,0.0,570.0);
+                actor->move(ball1->pointX - 12);
+                actor->setPoint(ball1->pointX);
+                actorpos = true;
+            }
+            k1++;
+            actor->setBallCount(k1);
+            ball1->move(actor->pointX, actor->pointY);
+            ball1->pointX = actor->pointX;
+            ball1->pointY = actor->pointY;
+            ball1->setVelocity(0, 0);
+        }
+        qDebug() << "k1 =" << k1 << "balls.size() =" << balls.size();
+
+        if(k1 == balls.size()){
+            timerStop();
+            return;
+        }
+
+        ball1->move(ball1->pointX, ball1->pointY);
+    }
 }
+
+// void GameScene::fireAnim(){
+//     count++;
+//     if(currentBallIndex < balls.size() && count  == 5){
+//         this->balls[currentBallIndex]->setVelocity(dx,dy);
+//         currentBallIndex++;
+//     }
+
+
+//     if(count > 5 ){
+//         count = 0;
+//     }
+
+
+//         for(Ball* ball1: balls){
+
+//             if(ball1->dx == 0 && ball1->dy == 0){
+//                 continue;
+//             }
+//             double nextX = ball1->pointX + ball1->dx;
+//             double nextY = ball1->pointY + ball1->dy;
+
+//             QRect ballRect(nextX, nextY, ball1->width(), ball1->height());
+
+//             bool collided = false;
+
+//             for (int i = 0; i < bricks.size(); ++i) {
+//                 Brick* w = bricks.at(i);
+//                 QRect blockRect = w->geometry();
+
+//                 if (ballRect.intersects(blockRect)) {
+//                     bricks[i]->changeHealth();
+
+//                     if ((ballRect.bottom() <= blockRect.top() + ball1->height() && dy > 0)
+//                     || (ballRect.top() >= blockRect.bottom() - ball1->height() && dy < 0)){
+//                         ball1->dy *= -1;
+//                     } else {
+//                         ball1->dx *= -1;
+//                     }
+//                     collided = true;
+//                     break;
+//                 }
+//             }
+
+//             if (!collided) {
+//                 ball1->pointX = nextX;
+//                 ball1->pointY = nextY;
+//             } else {
+//                 ball1->pointX += ball1->dx;
+//                 ball1->pointY += ball1->dy;
+//             }
+
+//             if (ball1->pointX <= 0 || ball1->pointX >= (double)this->size().width() - (double)ball1->size().width()) ball1->dx *= -1;
+//             if (ball1->pointY <= 0) ball1->dy *= -1;
+//             if (ball1->pointY >= (double)this->size().height() ){
+//                 qDebug() << ball1->pointY;
+//                 if(!actorpos){
+//                     std::clamp(ball1->pointX,0.0,570.0);
+//                     actor->move(ball1->pointX - 12);
+//                     actor->setPoint(ball1->pointX);
+//                     actorpos = true;
+//                 }
+//                 k1++;
+//                 actor->setBallCount(k1);
+//                 ball1->move(actor->pointX, actor->pointY);
+//                 ball1->pointX = actor->pointX;
+//                 ball1->pointY = actor->pointY;
+//                 ball1->setVelocity(0, 0);
+//             }
+
+//             if(k1 == balls.size()){
+
+//                 timerStop();
+//                 return;
+//             }
+
+//             ball1->move(ball1->pointX, ball1->pointY);
+//         }
+
+
+
+// }
 void GameScene::mousePressEvent(QMouseEvent *event) {
     if(event->type() == QEvent::MouseButtonPress){
         auto *mouseEvent = static_cast<QMouseEvent*>(event);
