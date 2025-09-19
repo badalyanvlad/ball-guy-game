@@ -14,6 +14,7 @@ public:
     void move(float x);
 
     void fire(float angle, const QVector<Ball*>& balls);
+
 };
 
 #endif // ACTOR_H

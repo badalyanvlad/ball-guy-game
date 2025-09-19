@@ -2,6 +2,8 @@
 #define BALL_H
 
 #include <QWidget>
+#include <QRect>
+#include "brick.h"
 
 class Ball : public QWidget
 {
@@ -15,3 +17,4 @@ public:
 };
 
 #endif // BALL_H
+ //velocity gndaki skzbnakan dirqy (0,0)
