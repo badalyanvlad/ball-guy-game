@@ -11,8 +11,8 @@ QVector<Brick*> BricksFactory::createBricks(int numberOfBricks,
                                              bool withBonus,
                                              QWidget *parent)
 {
-    m_bricks.clear();
 
+    QVector<Brick*> bricks;
     int cols = 10;
     int spacing = 5;
     int brickW = 60;
@@ -32,14 +32,9 @@ QVector<Brick*> BricksFactory::createBricks(int numberOfBricks,
         }
 
         brick->move(col * (brickW + spacing), row * (brickH + spacing));
-        m_bricks.push_back(brick);
+        bricks.push_back(brick);
     }
 
-    return m_bricks;
+    return bricks;
 }
 
-void BricksFactory::reset()
-{
-    qDeleteAll(m_bricks);
-    m_bricks.clear();
-}

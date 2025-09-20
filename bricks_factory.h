@@ -14,16 +14,14 @@ public:
     explicit BricksFactory(QObject *parent = nullptr);
     ~BricksFactory();
 
-    QVector<Brick*> createBricks(int numberOfBricks,
+   static QVector<Brick*> createBricks(int numberOfBricks,
                                   int minHealth,
                                   int maxHealth,
                                   bool withBonus,
                                   QWidget *parent = nullptr);
 
-    void reset();
 
-private:
-    QVector<Brick*> m_bricks;
+
 };
 
 #endif // BRICKS_FACTORY_H

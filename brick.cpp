@@ -22,10 +22,7 @@ void Brick::hit()
     }
 }
 
-void Brick::setSize(int w, int h)
-{
-    setFixedSize(w, h);
-}
+
 
 void Brick::paintEvent(QPaintEvent *event)
 {
