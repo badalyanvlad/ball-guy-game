@@ -7,20 +7,14 @@
 #include "brick.h"
 #include "bonus_brick.h"
 
-class BricksFactory : public QObject
+class BricksFactory
 {
-    Q_OBJECT
 public:
-    explicit BricksFactory(QObject *parent = nullptr);
-    ~BricksFactory();
-
-   static QVector<Brick*> createBricks(int numberOfBricks,
-                                  int minHealth,
-                                  int maxHealth,
-                                  bool withBonus,
-                                  QWidget *parent = nullptr);
-
-
+    static QVector<Brick*> createBricks(int numberOfBricks,
+                                        int minHealth,
+                                        int maxHealth,
+                                        bool withBonus,
+                                        QWidget *parent = nullptr);
 
 };
 
