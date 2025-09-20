@@ -15,7 +15,7 @@ public:
     virtual void hit();
     void setSize(int w, int h);
 
-protected:   // ԱՅՍԿԵՐՏ պետք էր paintEvent-ի համար
+protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
