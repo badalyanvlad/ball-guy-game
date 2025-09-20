@@ -7,16 +7,15 @@ class BonusBrick : public Brick
 {
     Q_OBJECT
 public:
-
-
-    explicit BonusBrick(int health,QWidget *parent = nullptr);
+    explicit BonusBrick(int health, QWidget *parent = nullptr);
     ~BonusBrick() override;
-
-    void hit() override;      // override: երբ քանդվի  bonus գցի
+    void hit() override;
 
 signals:
     void brickCrashed();
 
+protected:
+  //  void paintEvent(QPaintEvent *event) override;
 };
 
-#endif // BONUSBRICK_H
+#endif // BONUS_BRICK_H

@@ -1,45 +1,40 @@
 #include "bricks_factory.h"
 
 BricksFactory::BricksFactory(QObject *parent)
-    : QObject(parent)
-{
-}
+    : QObject(parent) {}
 
-BricksFactory::~BricksFactory()
-{
-    qDeleteAll(m_bricks);
-}
+BricksFactory::~BricksFactory() {}
 
 QVector<Brick*> BricksFactory::createBricks(int numberOfBricks,
-                                           int minHealth,
-                                           int maxHealth,
-                                           bool withBonus,
-                                           QWidget *parent)
+                                             int minHealth,
+                                             int maxHealth,
+                                             bool withBonus,
+                                             QWidget *parent)
 {
-    reset();
 
-    QVector<Brick*> result;
-    result.reserve(numberOfBricks);
+    QVector<Brick*> bricks;
+    int cols = 10;
+    int spacing = 5;
+    int brickW = 60;
+    int brickH = 25;
 
     for (int i = 0; i < numberOfBricks; ++i) {
-        int health = QRandomGenerator::global()->bounded(minHealth, maxHealth + 1);
+        int row = i / cols;
+        int col = i % cols;
 
-        Brick* brick = nullptr;
-        if (withBonus && i % 5 == 0) {  //amen 5rdy bonus brick
+        int health = QRandomGenerator::global()->bounded(minHealth, maxHealth+1);
+
+        Brick* brick;
+        if (withBonus && i % 7 == 0) {
             brick = new BonusBrick(health, parent);
         } else {
             brick = new Brick(health, parent);
         }
 
-        result.append(brick);
+        brick->move(col * (brickW + spacing), row * (brickH + spacing));
+        bricks.push_back(brick);
     }
 
-    m_bricks = result;
-    return result;
+    return bricks;
 }
 
-void BricksFactory::reset()
-{
-    qDeleteAll(m_bricks);
-    m_bricks.clear();
-}

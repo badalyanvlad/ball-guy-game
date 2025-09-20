@@ -1,17 +1,19 @@
 #include "ball.h"
 
 Ball::Ball(QWidget *parent)
-    : QWidget{parent}
-{}
-
-
-bool Ball::doesHitted(QWidget* widget) {
-    Brick* brick = qobject_cast<Brick*>(widget);
-    if (!brick) return false;
-
-    QRect rectBall = this->geometry();
-    QRect rectBrick = brick->geometry();
-
-    return rectBall.intersects(rectBrick);
+    : QWidget(parent)
+{
+    setFixedSize(15, 15);
 }
-//stugum e ardyoq harvacel e qwidget tipi obyeckti te voch
+
+void Ball::setVelocity(const QVector2D& v)
+{
+
+    Q_UNUSED(v);
+}
+
+bool Ball::doesHitted(QWidget* widget)
+{
+    if (!widget) return false;
+    return this->geometry().intersects(widget->geometry());
+}

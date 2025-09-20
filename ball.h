@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QRect>
+#include <QVector2D>
 #include "brick.h"
 
 class Ball : public QWidget
@@ -12,9 +13,13 @@ public:
     explicit Ball(QWidget *parent = nullptr);
 
     void setVelocity(const QVector2D& v);
-
     bool doesHitted(QWidget* widget);
+
+protected:
+    //void paintEvent(QPaintEvent *event) override;
+
+private:
+    QVector2D m_velocity;
 };
 
 #endif // BALL_H
- //velocity gndaki skzbnakan dirqy (0,0)

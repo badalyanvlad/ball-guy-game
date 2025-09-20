@@ -10,7 +10,7 @@ SOURCES += main.cpp \
     ball.cpp \
     bonus_brick.cpp \
     brick.cpp \
-    bricks_manager.cpp \
+    bricks_factory.cpp \
     game_scene.cpp
 
 
@@ -19,5 +19,5 @@ HEADERS += \
     ball.h \
     bonus_brick.h \
     brick.h \
-    bricks_manager.h \
+    bricks_factory.h \
     game_scene.h
