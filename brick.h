@@ -12,10 +12,11 @@ public:
     virtual ~Brick();
 
     bool isDestroyed() const;
-
     virtual void hit();
-
     void setSize(int w, int h);
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     int m_health;

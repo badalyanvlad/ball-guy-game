@@ -2,7 +2,6 @@
 #define GAME_SCENE_H
 
 #include <QWidget>
-
 #include "actor.h"
 #include "ball.h"
 #include "bonus_brick.h"
@@ -21,15 +20,8 @@ public:
 
     void startGame();
 
-    /**
-     * shows balls fire direction
-     */
-    void mouseMoveEvent(QMouseEvent *event) override {}
-
-    /**
-     * fires balls
-     */
-    void mouseReleaseEvent(QMouseEvent *event) override {}
+    void mouseMoveEvent(QMouseEvent *event) override;      // միայն հայտարարություն
+    void mouseReleaseEvent(QMouseEvent *event) override;   // միայն հայտարարություն
 
 signals:
 

@@ -10,7 +10,7 @@ SOURCES += main.cpp \
     ball.cpp \
     bonus_brick.cpp \
     brick.cpp \
-    bricks_factory.h \
+    bricks_factory.cpp \
     game_scene.cpp
 
 

@@ -1,3 +1,4 @@
+
 #ifndef BRICKS_FACTORY_H
 #define BRICKS_FACTORY_H
 
@@ -14,10 +15,10 @@ public:
     ~BricksFactory();
 
     QVector<Brick*> createBricks(int numberOfBricks,
-                                 int minHealth,
-                                 int maxHealth,
-                                 bool withBonus,
-                                 QWidget *parent = nullptr);
+                                  int minHealth,
+                                  int maxHealth,
+                                  bool withBonus,
+                                  QWidget *parent = nullptr);
 
     void reset();
 
