@@ -11,15 +11,11 @@ public:
     explicit Brick(int health, QWidget *parent = nullptr);
     virtual ~Brick();
 
-    int getHealth() const;
     bool isDestroyed() const;
-
     virtual void hit();
-
-    void setPosition(int x, int y);
     void setSize(int w, int h);
 
-protected:
+protected:   // ԱՅՍԿԵՐՏ պետք էր paintEvent-ի համար
     void paintEvent(QPaintEvent *event) override;
 
 private:

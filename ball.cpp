@@ -1,16 +1,19 @@
 #include "ball.h"
 
 Ball::Ball(QWidget *parent)
-    : QWidget{parent}, velocity(0,0)
-{}
-
-void Ball::setVelocity(const QVector2D& v) // գնդակի տալիս է արագություն
+    : QWidget(parent)
 {
-    velocity = v;
+    setFixedSize(15, 15);
 }
 
-void Ball:: moveBall() //շարժում է գնդակը
+void Ball::setVelocity(const QVector2D& v)
 {
-    QPointF position = this->pos() + QPointF(velocity.x(), velocity.y());//նոր դիրքն ենք որոշում
-    this->move(position.toPoint());
+
+    Q_UNUSED(v);
+}
+
+bool Ball::doesHitted(QWidget* widget)
+{
+    if (!widget) return false;
+    return this->geometry().intersects(widget->geometry());
 }
