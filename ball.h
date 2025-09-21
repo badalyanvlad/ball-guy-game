@@ -2,6 +2,7 @@
 #define BALL_H
 
 #include <QWidget>
+#include <QPainter>
 
 class Ball : public QWidget
 {
@@ -9,9 +10,22 @@ class Ball : public QWidget
 public:
     explicit Ball(QWidget *parent = nullptr);
 
-    void setVelocity(const QVector2D& v);
+    Ball(QPoint pos, QPoint vel = {1, 1}) : position(pos), velocity(vel), radius(10.0), alive(true){};
 
-    bool doesHitted(QWidget* widget);
+    void setVelocity(const QPoint& v);
+
+    void doesHitted(QWidget* widget);
+
+    void doesHittedWall(QWidget *widget);
+protected:
+    void paintEvent(QPaintEvent*) override;
+signals:
+    //void bonusSignal();
+private:
+    QPoint position;
+    QPoint velocity;
+    qreal radius;
+    bool alive = true;
 };
 
 #endif // BALL_H
