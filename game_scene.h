@@ -2,10 +2,12 @@
 #define GAME_SCENE_H
 
 #include <QWidget>
+#include <QTimer>
 #include "actor.h"
 #include "ball.h"
 #include "bonus_brick.h"
 #include "brick.h"
+#include <QLabel>
 
 class GameScene : public QWidget
 {
@@ -20,8 +22,8 @@ public:
 
     void startGame();
 
-    void mouseMoveEvent(QMouseEvent *event) override;      // միայն հայտարարություն
-    void mouseReleaseEvent(QMouseEvent *event) override;   // միայն հայտարարություն
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 signals:
 
@@ -30,6 +32,10 @@ private:
     QVector<Brick*> bricks;
     QVector<Ball*> balls;
     Actor* actor;
+    QTimer* timer;
+    QLabel* livesLabel = nullptr;
+    int lives = 3;
+
 };
 
 #endif // GAME_SCENE_H

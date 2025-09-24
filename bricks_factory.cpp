@@ -1,15 +1,10 @@
 #include "bricks_factory.h"
 
-BricksFactory::BricksFactory(QObject *parent)
-    : QObject(parent) {}
-
-BricksFactory::~BricksFactory() {}
-
 QVector<Brick*> BricksFactory::createBricks(int numberOfBricks,
-                                             int minHealth,
-                                             int maxHealth,
-                                             bool withBonus,
-                                             QWidget *parent)
+                                            int minHealth,
+                                            int maxHealth,
+                                            bool withBonus,
+                                            QWidget *parent)
 {
 
     QVector<Brick*> bricks;
