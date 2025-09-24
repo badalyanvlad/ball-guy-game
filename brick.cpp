@@ -18,11 +18,9 @@ void Brick::hit()
 {
     if (m_health > 0) {
         --m_health;
-        update(); // repaint after hit
+        update();
     }
 }
-
-
 
 void Brick::paintEvent(QPaintEvent *event)
 {
@@ -42,5 +40,7 @@ void Brick::paintEvent(QPaintEvent *event)
     }
 
     painter.setPen(Qt::black);
+    painter.setPen(Qt::NoPen);
+
     painter.drawRect(rect());
 }

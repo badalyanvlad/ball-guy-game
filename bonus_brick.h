@@ -2,6 +2,7 @@
 #define BONUS_BRICK_H
 
 #include "brick.h"
+#include <QPainter>
 
 class BonusBrick : public Brick
 {
@@ -15,7 +16,7 @@ signals:
     void brickCrashed();
 
 protected:
-  //  void paintEvent(QPaintEvent *event) override;
+   void paintEvent(QPaintEvent *event) override;
 };
 
 #endif // BONUS_BRICK_H

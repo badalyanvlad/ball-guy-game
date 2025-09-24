@@ -14,3 +14,15 @@ void BonusBrick::hit()
         emit brickCrashed();
     }
 }
+void BonusBrick::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+
+    if(!isDestroyed())
+    {
+        painter.setBrush(Qt::gray);
+        painter.setPen(Qt::NoPen);
+
+        painter.drawEllipse(rect());
+    }
+}

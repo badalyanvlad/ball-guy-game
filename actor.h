@@ -11,10 +11,10 @@ class Actor : public QWidget
 public:
     explicit Actor(QWidget *parent = nullptr);
     void move(float x);
-    void fire(float angle, const QVector<Ball*>& balls);
+    void fire(float angle,  QVector<Ball*>& balls);
 
 protected:
-    //void paintEvent(QPaintEvent *event) override;
+   void paintEvent(QPaintEvent *event) override;
 };
 
 #endif // ACTOR_H
