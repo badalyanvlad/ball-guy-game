@@ -2,20 +2,17 @@
 #define BONUS_BRICK_H
 
 #include "brick.h"
+#include <QObject>
 
-class BonusBrick : public Brick
-{
+class BonusBrick : public Brick {
     Q_OBJECT
 public:
-    explicit BonusBrick(int health, QWidget *parent = nullptr);
-    ~BonusBrick() override;
+    BonusBrick(QWidget* parent = nullptr);
     void hit() override;
-
 signals:
     void brickCrashed();
-
 protected:
-  //  void paintEvent(QPaintEvent *event) override;
+    void paintEvent(QPaintEvent* event) override;
 };
 
-#endif // BONUS_BRICK_H
+#endif

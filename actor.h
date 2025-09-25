@@ -1,8 +1,6 @@
-#ifndef ACTOR_H
-#define ACTOR_H
-
+#pragma once
 #include <QWidget>
-#include <QVector>
+#include <QVector2D>
 #include "ball.h"
 
 class Actor : public QWidget
@@ -10,11 +8,11 @@ class Actor : public QWidget
     Q_OBJECT
 public:
     explicit Actor(QWidget *parent = nullptr);
-    void move(float x);
+
+    void move(float x, float y);
+
     void fire(float angle, const QVector<Ball*>& balls);
 
 protected:
-    //void paintEvent(QPaintEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 };
-
-#endif // ACTOR_H

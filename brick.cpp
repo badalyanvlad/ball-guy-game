@@ -1,46 +1,49 @@
 #include "brick.h"
 #include <QPainter>
+#include <QColor>
 
 Brick::Brick(int health, QWidget *parent)
-    : QWidget(parent), m_health(health)
+    : QWidget(parent), health_(health)
 {
-    setFixedSize(25, 25);
-}
-
-Brick::~Brick() {}
-
-bool Brick::isDestroyed() const
-{
-    return m_health == 0;
+    setFixedSize(60, 25);
 }
 
 void Brick::hit()
 {
-    if (m_health > 0) {
-        --m_health;
-        update(); // repaint after hit
+    if (health_ > 0) {
+        health_--;
+        if (health_ <= 0) {
+            hide();
+        }
+        update();
     }
 }
 
-
-
 void Brick::paintEvent(QPaintEvent *event)
 {
-    Q_UNUSED(event);
     QPainter painter(this);
+    if (health_ > 0) {
+        QColor outlineColor;
+        switch (health_) {
+        case 1:
+            outlineColor = QColor(173, 216, 230);
+            break;
+        case 2:
+            outlineColor = QColor(240, 182, 203);
+            break;
+        case 3:
+            outlineColor = QColor(144, 238, 144);
+            break;
+        default:
+            outlineColor = QColor(255, 245, 157);
+            break;
+        }
 
-    if (m_health >= 4) {
-        painter.setBrush(Qt::red);
-    } else if (m_health == 3) {
-        painter.setBrush(Qt::darkRed);
-    } else if (m_health == 2) {
-        painter.setBrush(Qt::green);
-    } else if (m_health == 1) {
-        painter.setBrush(Qt::blue);
-    } else {
-        painter.setBrush(Qt::yellow);
+        painter.setPen(QPen(outlineColor, 2));
+        painter.setBrush(Qt::white);
+        painter.drawRect(0, 0, width() - 1, height() - 1);
+
+        painter.setPen(Qt::black);
+        painter.drawText(rect(), Qt::AlignCenter, QString::number(health_));
     }
-
-    painter.setPen(Qt::black);
-    painter.drawRect(rect());
 }

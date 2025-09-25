@@ -1,15 +1,16 @@
 #include "actor.h"
-#include <QVector2D>
+#include <QPainter>
 #include <QtMath>
 
 Actor::Actor(QWidget *parent)
     : QWidget(parent)
 {
+    setFixedSize(100, 15);
 }
 
-void Actor::move(float x)
+void Actor::move(float x, float y)
 {
-    QWidget::move(x, this->y());
+    QWidget::move(x, y);
 }
 
 void Actor::fire(float angle, const QVector<Ball*>& balls)
@@ -21,4 +22,14 @@ void Actor::fire(float angle, const QVector<Ball*>& balls)
         if (ball)
             ball->setVelocity(dir);
     }
+}
+
+void Actor::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    QPainter p(this);
+
+    p.setPen(Qt::NoPen);
+    p.setBrush(QBrush(Qt::blue));
+    p.drawRect(rect());
 }

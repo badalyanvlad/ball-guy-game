@@ -1,21 +1,17 @@
-
 #ifndef BRICKS_FACTORY_H
 #define BRICKS_FACTORY_H
 
-#include <QVector>
-#include <QRandomGenerator>
 #include "brick.h"
 #include "bonus_brick.h"
+#include <QVector>
 
-class BricksFactory
-{
+class BricksFactory {
 public:
     static QVector<Brick*> createBricks(int numberOfBricks,
-                                        int minHealth,
-                                        int maxHealth,
-                                        bool withBonus,
-                                        QWidget *parent = nullptr);
-
+                                         int minHealth,
+                                         int maxHealth,
+                                         bool withBonus,
+                                         QWidget *parent);
 };
 
-#endif // BRICKS_FACTORY_H
+#endif
