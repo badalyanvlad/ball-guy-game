@@ -5,11 +5,14 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QRandomGenerator>
+#include <QResizeEvent>
 
 #include "actor.h"
 #include "ball.h"
 #include "bonus_brick.h"
 #include "brick.h"
+#include "bricks_manager.h"
 
 class GameScene : public QWidget
 {
@@ -21,7 +24,7 @@ class GameScene : public QWidget
         BallsAreFlying,
     };
 public:
-    explicit GameScene(int brickCount, int brickRowCount, QWidget *parent = nullptr);
+    explicit GameScene(QWidget *parent = nullptr);
 
     void startGame();
 
@@ -40,20 +43,20 @@ public:
     void showAiming();
     void ballsFlying();
     void addBallsByBonus(int count);
-    void creatingBricksRow(int count);
-    //~GameScene();
+    void resizeEvent(QResizeEvent *event) override;
+    void creating_brick_row();
+    QVector<Brick*> getBricks();
 
 signals:
     void bonusSignal();
 public:
-    QTimer *timer;
 private:
     QVector<BonusBrick*> bonusBricks;
     QVector<Brick*> bricks;
     QVector<Ball*> balls;
     Actor* actor;
     State state;
-    QVBoxLayout *bricks_rows;
+    QTimer *timer;
 };
 
 #endif // GAME_SCENE_H

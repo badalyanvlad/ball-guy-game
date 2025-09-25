@@ -14,10 +14,10 @@ void Ball::setVelocity(const QPoint& v){
 }
 
 void Ball::doesHittedWall(QWidget *widget){
-    if(position.x() - radius < 0 || position.x() + radius > widget->width()){
+    if(position.x() - ball_radius < 0 || position.x() + ball_radius > widget->width()){
         position.setX(-position.x());
     }
-    if(position.y() - radius < 0){
+    if(position.y() - ball_radius < 0){
         position.setY(-position.y());
     }
     if(position.y() > widget->height()){
@@ -38,7 +38,21 @@ void Ball::paintEvent(QPaintEvent*){
     painter.drawEllipse(circleRect);
 }
 
-
+void Ball::doesHitted(QVector<Brick*>& bricks){
+    for(auto *b : bricks){
+        QRect brick_shape = b->geometry();
+        QRect ball_shape(position.x(), position.y(), ball_radius*2, ball_radius*2);
+        if(brick_shape.intersects(ball_shape)){
+            QRectF overlap = brick_shape.intersected(ball_shape);
+            b->reduce_health();
+            if (overlap.width() < overlap.height()) {
+                velocity.setX(-velocity.x());
+            } else {
+                velocity.setY(-velocity.y());
+            }
+        }
+    }
+}
 
 
 

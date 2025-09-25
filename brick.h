@@ -16,6 +16,7 @@ class Brick : public QWidget
 public:
     explicit Brick(int health , QWidget *parent = nullptr);
     Brick(int health, int x, int y, int h = 40, int w = 40, QWidget *parent = nullptr);
+    void reduce_health();
 
 signals:
 protected:

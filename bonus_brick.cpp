@@ -1,15 +1,23 @@
 #include "bonus_brick.h"
 
 BonusBrick::BonusBrick() {
-    this->setFixedSize(15, 15);
+    this->resize(40, 40);
+    setContentsMargins(0, 0, 0, 0);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-void BonusBrick::paintEvent(QPaintEvent*){
+void BonusBrick::paintEvent(QPaintEvent *event){
+    Q_UNUSED(event);
     QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing, true);
-    QPen pen(Qt::yellow, 3);
-    painter.setPen(pen);
-    painter.setBrush(Qt::blue);
-    QRect cr = rect().adjusted(pen.width()/2, pen.width()/2, -pen.width()/2, -pen.width()/2);
-    painter.drawEllipse(cr);
+
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setBrush(Qt::yellow);
+    painter.setPen(Qt::black);
+
+    int squareSize = 10;
+    int diameter = squareSize;
+    int x = (width() - diameter) / 2;
+    int y = (height() - diameter) / 2;
+
+    painter.drawEllipse(x, y, diameter, diameter);
 }
