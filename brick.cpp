@@ -10,17 +10,22 @@ Brick::Brick(int health, QWidget *parent)
     this->setAlignment(Qt::AlignCenter);
     this->setText(QString::number(health));
 }
+void Brick::setPos(int i, int j){
+    posI = i;
+    posJ = j;
+}
+int Brick::getPosI(){
+    return posI;
+}
+int Brick::getPosJ(){
+    return posJ;
+}
 void Brick::changeHealth(){
     if(--health == 0){
         emit brickDestroyed(this);
     }
 
-
-    // GameScene* game = qobject_cast<GameScene*>(parent);
-
-    // if(game){
-    //     game->
-    // }
     else
         this->setText(QString::number(health));
 }
+

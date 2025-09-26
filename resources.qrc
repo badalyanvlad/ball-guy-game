@@ -2,7 +2,4 @@
     <qresource prefix="/images">
         <file>nkar.png</file>
     </qresource>
-    <qresource prefix="/sound">
-        <file>soundd.mp3</file>
-    </qresource>
 </RCC>

@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QLabel>
-
+#include <QVector2D>
 class Ball : public QLabel
 {
     Q_OBJECT
@@ -14,9 +14,13 @@ public:
     int getVelocity();
     void setVector(QVector2D);
     QVector2D getVector();
-
+    void setPos(double x, double y);
+    double getPosX();
+    double getPosY();
 
 private:
+    double posX;
+    double posY;
     QVector2D vector;
     int velocity;
 
