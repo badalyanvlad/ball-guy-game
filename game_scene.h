@@ -1,6 +1,7 @@
 #ifndef GAME_SCENE_H
 #define GAME_SCENE_H
-
+#include <QThread>
+#include <QMainWindow>
 #include <QWidget>
 #include <QLabel>
 #include <QEvent>
@@ -11,14 +12,17 @@
 #include <random>
 #include <algorithm>
 #include <QThread>
+#include <QResizeEvent>
+#include <QPalette>
 
+#include "gameover.h"
 #include "actor.h"
 #include "ball.h"
-//#include "bonus_brick.h"
 #include "brick.h"
 
 
-class GameScene : public QWidget
+
+class GameScene : public QMainWindow
 {
     Q_OBJECT
 
@@ -28,31 +32,31 @@ class GameScene : public QWidget
         Wait
     };
 public:
-    explicit GameScene(/*int brickCount, int brickRowCount,*/ QWidget *parent = nullptr);
+    explicit GameScene( QWidget *parent = nullptr);
     void addNewLineBrickes();
     void startGame();
     void fireAnim();
     void fire();
-    void mousePressEvent(QMouseEvent *event)override;
-    void mouseMoveEvent(QMouseEvent *event)override;
+    void mousePressEvent(QMouseEvent* event)override;
+    void mouseMoveEvent(QMouseEvent* event)override;
     void mouseReleaseEvent(QMouseEvent* event)override;
     void mouseupdate(double mousePosX, double mousePosY);
+    void resizeEvent(QResizeEvent*);
     void timerStop();
 public slots:
     void removeBrick(Brick* brick);
-signals:
-    void readyToFire(double,double);
 private:
     void brickCreating();
 private:
+    QWidget* gameWidget;
+    GameOver* gameoverWidget;
     State s;
     QTimer* timer;
-    QVector<Ball*> balls;    //QVector<BonusBrick*> bonusBricks;
+    QVector<Ball*> balls;
     QVector<Brick*> bricks;
     QList<QLabel*> ballsForAim;
     Actor* actor;
-    int lowestBrick;
-    bool actorpos;
+    QPushButton * btn;
     int currentBallIndex;
     int count;
     int k1;

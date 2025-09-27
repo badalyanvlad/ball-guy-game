@@ -9,10 +9,16 @@ class Brick : public QLabel
 public:
     explicit Brick(int health, QWidget *parent = nullptr);
     void changeHealth();
+    void setPos(int i,int j);
+    int getPosJ();
+    int getPosI();
 signals:
     void brickDestroyed(Brick* brick);
 private:
+    int posI;
+    int posJ;
     int health;
+
 
 };
 

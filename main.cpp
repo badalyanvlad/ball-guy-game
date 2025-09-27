@@ -6,7 +6,5 @@ int main(int argc, char * argv[]) {
     QApplication app(argc, argv);
     GameScene scene;
     scene.show();
-    // QWidget eidgt;
-    // eidgt.show();
     return app.exec();
 }
