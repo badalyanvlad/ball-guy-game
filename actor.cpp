@@ -3,3 +3,4 @@
 Actor::Actor(QWidget *parent)
     : QWidget{parent}
 {}
+

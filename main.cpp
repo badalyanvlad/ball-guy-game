@@ -4,7 +4,7 @@
 
 int main(int argc, char * argv[]) {
     QApplication app(argc, argv);
-    GameScene scene(10, 10);
+    GameScene scene;
     scene.show();
     return app.exec();
 }
