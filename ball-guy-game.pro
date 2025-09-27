@@ -1,4 +1,5 @@
 QT += widgets
+QT += multimedia
 
 CONFIG += c++17 console
 CONFIG -= app_bundle
@@ -11,7 +12,8 @@ SOURCES += main.cpp \
     bonus_brick.cpp \
     brick.cpp \
     bricks_manager.cpp \
-    game_scene.cpp
+    game_scene.cpp \
+    gameover.cpp
 
 
 HEADERS += \
@@ -20,4 +22,8 @@ HEADERS += \
     bonus_brick.h \
     brick.h \
     bricks_manager.h \
-    game_scene.h
+    game_scene.h \
+    gameover.h
+
+RESOURCES += \
+    resources.qrc
