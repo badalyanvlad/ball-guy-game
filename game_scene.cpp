@@ -1,5 +1,4 @@
 #include "game_scene.h"
-#include <QPalette>
 
 GameScene::GameScene(QWidget *parent)
     : QMainWindow{parent},s(State::Wait),currentBallIndex(0),count(0){
@@ -37,17 +36,13 @@ GameScene::GameScene(QWidget *parent)
             btn->setText("2x");
         }
     });
-    spatialGrid.resize(GRID_COLS * GRID_ROWS);
-    // Размеры ячеек будут обновляться в resizeEvent
-    gridCellWidth = gameWidget->width() / GRID_COLS;
-    gridCellHeight = gameWidget->height() / GRID_ROWS;
+
 
 }
 
 void GameScene::fireAnim(){
     count++;
     if(currentBallIndex < balls.size() && count  == balls[0]->width()/2){
-       // this->balls[currentBallIndex]->setVelocity(5);
         this->balls[currentBallIndex]->setVector(QVector2D(dx,dy));
         currentBallIndex++;
     }
@@ -64,7 +59,6 @@ void GameScene::fireAnim(){
         double nextX = ball1->getPosX() + ball1->getVelocity() * ball1->getVector().x();
         double nextY = ball1->getPosY() + ball1->getVelocity() * ball1->getVector().y();
 
-        //return;
         QRect ballRect(nextX, nextY, ball1->width(), ball1->height());
 
         for (int i = 0; i < bricks.size(); ++i) {
@@ -97,7 +91,7 @@ void GameScene::fireAnim(){
                 }
 
 
-                // break;
+                 break;
             }
         }
 
@@ -131,111 +125,7 @@ void GameScene::fireAnim(){
 
     }
 }
-// void GameScene::fireAnim(){
-//     // Шаг 1: Обновляем пространственную сетку один раз за кадр
-//     updateSpatialGrid();
 
-//     // ... ваш код для запуска шаров ...
-//     count++;
-//     if(currentBallIndex < balls.size() && count  == balls[0]->width()/2){
-//         this->balls[currentBallIndex]->setVector(QVector2D(dx,dy));
-//         currentBallIndex++;
-//     }
-//     if(count > balls[0]->width()/2 ){
-//         count = 0;
-//     }
-//     // ... конец кода запуска шаров ...
-
-//     for(Ball* ball1: balls){
-
-//         if(ball1->getVector() == QVector2D(0,0)){
-//             continue;
-//         }
-//         double nextX = ball1->getPosX() + ball1->getVelocity() * ball1->getVector().x();
-//         double nextY = ball1->getPosY() + ball1->getVelocity() * ball1->getVector().y();
-
-//         QRect ballRect(nextX, nextY, ball1->width(), ball1->height());
-
-//         // --- ОПТИМИЗАЦИЯ СТОЛКНОВЕНИЙ ---
-//         // 1. Определяем, в какой ячейке сетки находится шар
-//         int cellX = ball1->getPosX() / gridCellWidth;
-//         int cellY = ball1->getPosY() / gridCellHeight;
-
-//         // 2. Проверяем столкновения только с кирпичами в соседних ячейках
-//         bool collisionDetected = false;
-//         for (int y = -1; y <= 1; ++y) {
-//             for (int x = -1; x <= 1; ++x) {
-//                 int checkX = cellX + x;
-//                 int checkY = cellY + y;
-
-//                 // Проверяем, что не вышли за границы сетки
-//                 if (checkX >= 0 && checkX < GRID_COLS && checkY >= 0 && checkY < GRID_ROWS) {
-//                     int cellIndex = checkY * GRID_COLS + checkX;
-//                     const QList<Brick*>& bricksToCheck = spatialGrid[cellIndex];
-
-//                     // Проходимся по гораздо меньшему списку кирпичей
-//                     for (Brick* w : bricksToCheck) {
-//                         if (w->isHidden()) continue; // Пропускаем уже "удаленные"
-
-//                         QRect blockRect = w->geometry();
-//                         if (ballRect.intersects(blockRect)) {
-//                             w->changeHealth();
-
-//                             // ... ваша логика отскока (остается без изменений) ...
-//                             double overlapLeft   = ballRect.right()  - blockRect.left();
-//                             double overlapRight  = blockRect.right() - ballRect.left();
-//                             double overlapTop    = ballRect.bottom() - blockRect.top();
-//                             double overlapBottom = blockRect.bottom() - ballRect.top();
-
-//                             double minOverlapX = std::min(overlapLeft, overlapRight);
-//                             double minOverlapY = std::min(overlapTop, overlapBottom);
-
-//                             if (minOverlapX < minOverlapY) {
-//                                 ball1->setVector(QVector2D(-1 * ball1->getVector().x(),ball1->getVector().y()));
-//                             } else {
-//                                 ball1->setVector(QVector2D(ball1->getVector().x(), -1 * ball1->getVector().y()));
-//                             }
-//                             // ... конец логики отскока ...
-
-//                             collisionDetected = true;
-//                             break; // Выходим из цикла по кирпичам
-//                         }
-//                     }
-//                 }
-//                 if (collisionDetected) break; // Выходим из цикла по x
-//             }
-//             if (collisionDetected) break; // Выходим из цикла по y
-//         }
-//         // --- КОНЕЦ ОПТИМИЗАЦИИ ---
-
-
-//         // ... остальная часть вашей функции fireAnim (проверка стен, приземление шаров и т.д.) ...
-//         // ... она остается без изменений ...
-//         if (nextX <= 0 || nextX >= (double)gameWidget->size().width() - (double)ball1->size().width()){
-//             ball1->setVector(QVector2D(-1 * ball1->getVector().x(),ball1->getVector().y()));
-//         }
-//         if (nextY <= 0){
-//             ball1->setVector(QVector2D(ball1->getVector().x(),-1 * ball1->getVector().y()));
-//         }
-//         if (nextY >= (double)gameWidget->size().height()) {
-//             if(k1 == 0){
-//                 actor->setPos(nextX - actor->width()/4, gameWidget->height() - actor->height());
-//             }
-//             ball1->setVector(QVector2D(0,0));
-//             ball1->setPos(actor->geometry().x() + (actor->width()/4 - ball1->width()/2),actor->getPosY() - ball1->height());
-//             k1++;
-//             actor->setBallCount(k1);
-//             if (k1 == balls.size()) {
-//                 timerStop();
-//                 return;
-//             }
-//             continue;
-//         }
-
-//         ball1->setPos(ball1->getPosX() + ball1->getVelocity() * ball1->getVector().x(),
-//                       ball1->getPosY() + ball1->getVelocity() * ball1->getVector().y());
-//     }
-// }
 
 void GameScene::mousePressEvent(QMouseEvent *event) {
     if(event->type() == QEvent::MouseButtonPress){
@@ -419,27 +309,6 @@ void GameScene::removeBrick(Brick* brick){
     brick->hide();
     delete brick;
     bricks.removeOne(brick);
-}
-
-void GameScene::updateSpatialGrid() {
-    // 1. Очищаем всю сетку
-    for (auto& cell : spatialGrid) {
-        cell.clear();
-    }
-
-    // 2. Заполняем сетку кирпичами заново
-    for (Brick* brick : qAsConst(bricks)) {
-        // Определяем, в какую ячейку попадает верхний левый угол кирпича
-        int cellX = brick->geometry().x() / gridCellWidth;
-        int cellY = brick->geometry().y() / gridCellHeight;
-
-        // Ограничиваем значения, чтобы не выйти за пределы массива
-        cellX = std::clamp(cellX, 0, GRID_COLS - 1);
-        cellY = std::clamp(cellY, 0, GRID_ROWS - 1);
-
-        int cellIndex = cellY * GRID_COLS + cellX;
-        spatialGrid[cellIndex].append(brick);
-    }
 }
 
 

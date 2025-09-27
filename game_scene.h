@@ -13,11 +13,11 @@
 #include <algorithm>
 #include <QThread>
 #include <QResizeEvent>
+#include <QPalette>
 
 #include "gameover.h"
 #include "actor.h"
 #include "ball.h"
-//#include "bonus_brick.h"
 #include "brick.h"
 
 
@@ -43,19 +43,11 @@ public:
     void mouseupdate(double mousePosX, double mousePosY);
     void resizeEvent(QResizeEvent*);
     void timerStop();
-    void updateSpatialGrid();
 public slots:
     void removeBrick(Brick* brick);
-signals:
-    // void readyToFire(float,float);
 private:
     void brickCreating();
 private:
-    static const int GRID_COLS = 10;
-    static const int GRID_ROWS = 15;
-    std::vector<QList<Brick*>> spatialGrid;
-    int gridCellWidth;
-    int gridCellHeight;
     QWidget* gameWidget;
     GameOver* gameoverWidget;
     State s;
