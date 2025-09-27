@@ -78,7 +78,7 @@ void GameScene::creating_brick_row(){
         if(random_value == 3){
             BonusBrick *new_bonus_brick = new BonusBrick();
             new_bonus_brick->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-            bonusBricks.push_back(new_bonus_brick);
+            bonus_bricks.push_back(new_bonus_brick);
             new_bonus_brick->setGeometry(start_width, start_height, 40, 40);
             start_width += 40;
         }
@@ -99,38 +99,54 @@ void GameScene::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
 
     const int cols = 15;
-    int sceneWidth = width();
-    int brickH = 40;
+    int scene_width = width();
+    int scene_height = height();
+    int brick_height = 40;
 
     for (int i = 0; i < bricks.size(); ++i) {
         int col = i % cols;
         int row = i / cols;
 
-        int x = (col * sceneWidth) / cols;
-        int nextX = ((col + 1) * sceneWidth) / cols;
-        int w = nextX - x;
+        int x = (col * scene_width) / cols;
+        int next_x = ((col + 1) * scene_width) / cols;
+        int w = next_x - x;
 
         if (bricks[i]) {
             bricks[i]->setParent(this);
-            bricks[i]->setGeometry(x, row * brickH, w, brickH);
+            bricks[i]->setGeometry(x, row * brick_height, w, brick_height);
         }
     }
 
-    for (int i = 0; i < bonusBricks.size(); ++i) {
+    for (int i = 0; i < bonus_bricks.size(); ++i) {
         int idx = bricks.size() + i;
         int col = idx % cols;
         int row = idx / cols;
 
-        int x = (col * sceneWidth) / cols;
-        int nextX = ((col + 1) * sceneWidth) / cols;
-        int w = nextX - x;
+        int x = (col * scene_width) / cols;
+        int next_x = ((col + 1) * scene_width) / cols;
+        int w = next_x - x;
 
-        if (bonusBricks[i]) {
-            bonusBricks[i]->setParent(this);
-            bonusBricks[i]->setGeometry(x, row * brickH, w, brickH);
+        if (bonus_bricks[i]) {
+            bonus_bricks[i]->setParent(this);
+            bonus_bricks[i]->setGeometry(x, row * brick_height, w, brick_height);
         }
     }
 }
+
+// void GameScene::resizeEvent(QResizeEvent *event){
+//     const int cols = 15;
+//     int scene_width = width();
+//     int scene_height = height();
+//     for(int i = 0; i < bricks.size(); ++i){
+//         bricks[i] -> resize(scene_width/cols, scene_height/10);
+//     }
+//     for(int i = 0; i < bonus_bricks.size(); ++i){
+//         bonus_bricks[i]->resize(scene_width/cols, scene_height/10);
+//     }
+// }
+
+
+
 
 
 

@@ -51,7 +51,7 @@ signals:
     void bonusSignal();
 public:
 private:
-    QVector<BonusBrick*> bonusBricks;
+    QVector<BonusBrick*> bonus_bricks;
     QVector<Brick*> bricks;
     QVector<Ball*> balls;
     Actor* actor;

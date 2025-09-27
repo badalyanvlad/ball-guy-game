@@ -19,6 +19,7 @@ public:
     void reduce_health();
 
 signals:
+    //void die_signal();
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:

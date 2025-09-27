@@ -39,4 +39,33 @@ void Brick::paintEvent(QPaintEvent *event){
 
 void Brick::reduce_health(){
     health -= 1;
+    if(health <= 0){
+        hide();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
