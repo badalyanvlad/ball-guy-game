@@ -2,24 +2,19 @@
 #define BALL_H
 
 #include <QWidget>
-#include <QRect>
 #include <QVector2D>
-#include "brick.h"
 
-class Ball : public QWidget
-{
-    Q_OBJECT
+class Ball : public QWidget {
 public:
-    explicit Ball(QWidget *parent = nullptr);
-
+    Ball(QWidget *parent = nullptr);
     void setVelocity(const QVector2D& v);
+    QVector2D velocity() const;
     bool doesHitted(QWidget* widget);
-
+    void moveBall();
 protected:
-    //void paintEvent(QPaintEvent *event) override;
-
+    void paintEvent(QPaintEvent *event) override;
 private:
     QVector2D m_velocity;
 };
 
-#endif // BALL_H
+#endif
