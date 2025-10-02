@@ -8,12 +8,12 @@ class Brick : public QWidget {
 public:
     explicit Brick(int health, QWidget *parent = nullptr);
     virtual ~Brick() {}
-    bool isDestroyed() const { return health_ <= 0; }
+    bool isDestroyed() const { return m_health <= 0; }
     virtual void hit();
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
-    int health_;
+    int m_health;
 };
 
 #endif

@@ -8,9 +8,16 @@ Actor::Actor(QWidget *parent)
     setFixedSize(100, 15);
 }
 
-void Actor::move(float x, float y)
+void Actor::move(float x)
 {
-    QWidget::move(x, y);
+
+    QWidget* parent = parentWidget();
+    if (parent) {
+        float newX = qBound(0.0f, x, static_cast<float>(parent->width() - width()));
+        QWidget::move(static_cast<int>(newX), y());
+    } else {
+        QWidget::move(static_cast<int>(x), y());
+    }
 }
 
 void Actor::fire(float angle, const QVector<Ball*>& balls)

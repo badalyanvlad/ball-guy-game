@@ -18,7 +18,7 @@ QVector<Brick*> BricksFactory::createBricks(int numberOfBricks,
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
             if (QRandomGenerator::global()->bounded(100) < 70) {
-                int health = QRandomGenerator::global()->bounded(minHealth, 21);
+                int health = QRandomGenerator::global()->bounded(minHealth, 11);
                 Brick* brick;
                 if (withBonus && QRandomGenerator::global()->bounded(10) < 1) {
                     brick = new BonusBrick(parent);

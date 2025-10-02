@@ -4,7 +4,7 @@
 BonusBrick::BonusBrick(QWidget* parent)
     : Brick(1, parent)
 {
-    setFixedSize(15, 15);
+    setFixedSize(25, 25);
 }
 
 void BonusBrick::hit()
